@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [Header("Move Camera")]
     [SerializeField] private Transform previousRoom;
     [SerializeField] private Transform nextRoom;
     [SerializeField] private CameraController cam;
+    [Header("Activate/Deactivate Room")]
+    [SerializeField] private Transform activatePreviousRoom;
+    [SerializeField] private Transform activateNextRoom;
+
 
     private void Awake()
     {
@@ -21,14 +26,14 @@ public class Door : MonoBehaviour
             if (collision.transform.position.x < transform.position.x)
             {
                 cam.MoveToNewRoom(nextRoom);
-                nextRoom.GetComponent<Room>().ActivateRoom(true);
-                previousRoom.GetComponent<Room>().ActivateRoom(false);
+                activateNextRoom.GetComponent<Room>().ActivateRoom(true);
+                activatePreviousRoom.GetComponent<Room>().ActivateRoom(false);
             }
             else
             {
                 cam.MoveToNewRoom(previousRoom);
-                previousRoom.GetComponent<Room>().ActivateRoom(true);
-                nextRoom.GetComponent<Room>().ActivateRoom(false);
+                activatePreviousRoom.GetComponent<Room>().ActivateRoom(true);
+                activateNextRoom.GetComponent<Room>().ActivateRoom(false);
             }
 
         }
